@@ -1,0 +1,68 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui; font-size: 13px; background: #000000; color: #c8c8c8; }
+
+#app { max-width: 900px; margin: 0 auto; }
+
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid #0073ff; color: #fcff45;
+  position: sticky; top: 0; background: #000000; z-index: 10;
+}
+.nav { display: flex; align-items: center; gap: 8px; }
+.nav-label { font-size: 12px; color: #ffffff; }
+#page-input {
+  width: 60px; padding: 4px 8px; background: #1a1a1a;
+  border: 1px solid #333; border-radius: 4px; color: #c8c8c8;
+  font-size: 13px; text-align: center;
+}
+#page-input:focus { outline: none; border-color: #d9ff00; }
+
+#page-input {
+  width: 60px; padding: 4px 8px; background: #1a1a1a;
+  border: 1px solid #333; border-radius: 4px; color: #c8c8c8;
+  font-size: 13px; text-align: center;
+}
+
+/* đảo chiều spinner */
+#page-input::-webkit-inner-spin-button {
+  -webkit-appearance: inner-spin-button;
+  transform: scaleY(-1);
+}
+
+.col-header {
+  display: grid;
+  grid-template-columns: 40px 140px 1fr 72px 72px 72px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  border-bottom: 1px solid #03d9ff;
+  font-size: 11px; color: #ffae00;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  position: sticky; top: 41px; background: #0e0e0e; z-index: 9;
+}
+
+.word-row {
+  display: grid;
+  grid-template-columns: 40px 140px 1fr 72px 72px 72px;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 16px;
+  border-bottom: 1px solid #9b9b9b;
+}
+.word-row:hover { background: #1a1919; }
+
+.rank { width: 40px; text-align: right; color: #d9ff00; font-size: 11px; flex-shrink: 0; }
+.word { width: 140px; font-weight: 500; color: #ffffff; flex-shrink: 0; }
+
+.badge {
+  display: inline-block; font-size: 10px; padding: 2px 6px;
+  border-radius: 3px; border: 1px solid transparent; font-weight: 500;
+}
+.badge.empty { color: #2a2a2a; border-color: transparent; }
+
+.cefrA1 { background: #0a1f18; color: #3a9e78; border-color: #1a4a35; }
+.cefrA2 { background: #0f1f08; color: #6a9e30; border-color: #2a4a10; }
+.cefrB1 { background: #08141f; color: #4a8abf; border-color: #103050; }
+.cefrB2 { background: #100e1f; color: #7a70cc; border-color: #2a2550; }
+.cefrC1 { background: #1f1608; color: #bf9030; border-color: #503510; }
+.cefrC2 { background: #1f0c08; color: #bf5030; border-color: #501808; }

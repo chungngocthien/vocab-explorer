@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# User state — local only, không đẩy lên
+app-data/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Electron build output (nếu sau này dùng electron-builder)
+dist/
+out/
