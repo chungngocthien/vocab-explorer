@@ -19,3 +19,5 @@ I plan to identify tags related to the learning process. So far, I have establis
 [VARIABLE_ISOLATION]
 
 If you would like to see how I derived the algorithm, you can copy the content from [narrative-log.md](https://github.com/chungngocthien/vocab-explorer/blob/main/narrative-log.md) and have any LLM analyze it; it will explain how I created these two files. You can also provide the content to an AI agent—such as GLM—to execute the file generation.
+
+Since I feel like I’m the one creating the material, I pay close attention while studying, and it works—at the very least, I don’t miss any important words.
