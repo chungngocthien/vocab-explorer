@@ -1,5 +1,54 @@
-**NARRATIVE_RENDER_MODE**
+**[1] WHO**
 
+The orchestrator thinks by collecting raw material first and resisting interpretation until the material forces it — he will spend hours gathering sources, normalizing schemas, and deferring judgment rather than committing early to a framework that might be wrong. His cognitive signature is a distrust of premature closure paired with an unusual patience for staying in the exploratory phase without anxiety. The bias that shows up most consistently is a preference for letting the data speak before imposing structure — he asked "what does wordfreq actually have?" before deciding whether to use it, asked "what does CMU actually contain?" before deciding whether to keep it. He also carries a calibrated instinct for when a system has reached diminishing returns, which is why he named "tâm trí hết idea để mổ thêm" not as frustration but as a clean signal to stop.
+
+---
+
+**[2] WHAT HAPPENED**
+
+The session opened with a simple question about building a frequency table for common English words, and the belief at the start was that the main challenge was finding the right single source. That belief dissolved within the first hour when the distinction between wordfreq (balanced corpus), OpenSubtitles (spoken English), and Oxford (editorial classification) made it clear that no single source was right — each was right about a different dimension of the same question. The session then became about building a schema that could hold all three dimensions simultaneously rather than collapsing them into one.
+
+The first artifact was `merged.csv` — a join of three sources with rank, frequency percentage, and Zipf score preserved independently for each corpus. The discovery that Zipf scores from the subtitles file were secretly borrowed from wordfreq forced a recalculation, and the corrected data revealed the first meaningful signal: "you" had a higher sub_zipf than wf_zipf, confirming spoken bias in a way raw rank could not.
+
+The second phase was mathematical. Starting from a naive absolute rank difference, the session worked through a series of formula proposals — Priority Score from Gemini, delta/avg_zipf from Claude, magnitude penalty with free parameters — stress-testing each against concrete examples like `unto` vs `deal` and `connection` vs `boss`. Each formula failed in a specific way that forced the next. The session converged on `|wf_zipf - sub_zipf| / avg_zipf²` not because it was theoretically elegant but because it was the only formula that produced no free parameters while correctly ordering all test cases.
+
+The final artifact `merged_learning.csv` revealed two emergent tiers that no one designed: a "cement" layer of structural words at the top, and a "brick" layer of culturally survivable words immediately below — a distinction that ChatGPT named "cultural survivability" and that held up across all three LLMs without prompting.
+
+---
+
+**[3] WHERE IT BROKE**
+
+The stance that collapsed was the assumption that a single ranking formula could encode three independent dimensions — commonness, cross-corpus agreement, and word type. The evidence that destroyed it was `elbow` floating to rank 2010 despite wf_rank 9037, and `unto` sitting next to `deal` despite being a near-obsolete preposition. What replaced the destroyed belief was not a better formula but a cleaner boundary: the formula can encode two dimensions (commonness and agreement), and the third dimension (word type — proper noun, domain-specific, common word) is not computable from corpus data alone. That third dimension was named and set aside deliberately, not abandoned.
+
+---
+
+**[4] WHAT REMAINS UNRESOLVED**
+
+The proper noun problem sits quietly in every range of the learning table. `adam`, `george`, `michael`, `jesus` all score well because they are balanced across corpora — but they are not vocabulary to be learned, they are names to be recognized. There is no column in the current schema that distinguishes them, and filtering them requires either a named-entity tagger or manual curation. The mechanism is invisible by design: the formula has no way to know that a lowercase string is a proper noun unless told.
+
+The domain divergence beyond rank 500 is named but unbuilt. The data supports the claim that past a certain threshold, a single ranked list stops being useful and domain packs become necessary — but no domain pack exists yet, and the boundary where cultural survivability ends and domain specificity begins has not been measured, only intuited.
+
+CMU phonetic data sits in `cmu_raw.txt` with no integration path yet. It holds syllable count, stress position, and rhyme group as future metadata, but the join logic has not been designed and the use case (pronunciation-aware flashcards, minimal pair drills) has not been committed to.
+
+---
+
+**[5] WHAT WAS LEARNED — AND AT WHAT COST**
+
+The lesson that changed behavior most durably: **defer source commitment until the schema can hold multiple sources simultaneously**. The early instinct to pick one source and go deep would have produced a cleaner pipeline and a worse dataset. The cost of learning this was zero in this session because the multi-source design was chosen before any single source was over-invested in.
+
+The second durable lesson: **free parameters are a smell**. Every formula that required an α, an n, or a manually chosen ceiling (7.5) eventually broke on an edge case that forced parameter re-tuning. The formula that survived had no free parameters — the mathematics self-regulated through the properties of the log scale. The cost was one full cycle of formula iteration before this property became visible.
+
+The third lesson, emerging from the closing conversation: **knowing when the design phase is complete is itself a skill**. The signal was not external — no test failed, no deadline hit — it was internal: the orchestrator noticed that no new angles were presenting themselves and named that as the stopping condition. That metacognitive move is rarer than it looks.
+
+---
+
+**[6] METAPHOR ANCHOR**
+
+A cartographer who spent the day triangulating three different maps of the same territory — each drawn by a different expedition, each biased by the route they took — and produced not one authoritative map but a transparent overlay where the disagreements between maps are themselves the most useful information.
+
+---
+
+[2026-06-08] The session ended with a ranked learning table whose top tier separates structural cement from cultural bricks, carrying the proper noun contamination problem and the unbuilt domain divergence layer into the next.
 ---
 
 **[1] WHO**
